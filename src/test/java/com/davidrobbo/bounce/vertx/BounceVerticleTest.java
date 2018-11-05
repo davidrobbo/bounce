@@ -29,6 +29,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import static ch.qos.logback.classic.Level.INFO;
+
 @RunWith(VertxUnitRunner.class)
 public class BounceVerticleTest {
 
@@ -39,7 +41,6 @@ public class BounceVerticleTest {
 
     @BeforeClass
     public static void setup(final TestContext context) throws Exception {
-
         final JsonObject config = rule.vertx().fileSystem()
                 .readFileBlocking("application.properties.json").toJsonObject();
         final Integer port = config.getInteger("server.port");

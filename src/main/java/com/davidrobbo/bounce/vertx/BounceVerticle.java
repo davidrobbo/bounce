@@ -1,5 +1,7 @@
 package com.davidrobbo.bounce.vertx;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
 import com.davidrobbo.bounce.guice.BounceConfigModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -11,6 +13,7 @@ import io.vertx.core.Future;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
+import org.slf4j.LoggerFactory;
 
 public class BounceVerticle extends AbstractVerticle {
 
@@ -22,6 +25,11 @@ public class BounceVerticle extends AbstractVerticle {
     public void start(Future<Void> startFuture) throws Exception {
         vertx.executeBlocking(future -> {
             try {
+                final JsonObject config = vertx.getOrCreateContext().config();
+                if (config.containsKey("log.level")) {
+                    Logger root = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+                    root.setLevel(Level.valueOf(config.getString("log.level")));
+                }
                 final boolean enableHibernate = getClass().isAnnotationPresent(EnableJPARepositories.class);
                 injector = Guice.createInjector(new BounceConfigModule(vertx, enableHibernate));
                 future.complete();
