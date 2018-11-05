@@ -1,0 +1,11 @@
+{
+  "server.port": 8080,
+  "datasource.driver_class": "org.hsqldb.jdbcDriver",
+  "datasource.password": "",
+  "datasource.url": "jdbc:hsqldb:mem:test;shutdown=true",
+  "datasource.username": "",
+  "datasource.show_sql": "true",
+  "hibernate.hbm2ddl.auto": "update",
+  "hibernate.dialect": "org.hibernate.dialect.HSQLDialect",
+  "log.level": "INFO"
+}
