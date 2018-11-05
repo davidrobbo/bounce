@@ -9,6 +9,7 @@ import com.davidrobbo.bounce.vertx.web.util.Bounce;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.http.HttpServer;
+import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 
 public class BounceVerticle extends AbstractVerticle {
@@ -49,11 +50,12 @@ public class BounceVerticle extends AbstractVerticle {
 
     private void initWeb(final Future<Void> startFuture) {
         try {
+            final JsonObject config = vertx.getOrCreateContext().config();
+            final Integer port = config.getInteger("server.port");
             httpServer = vertx.createHttpServer();
             router = Router.router(vertx);
             Bounce.springify(getClass().getAnnotation(EnableWeb.class).packages(), router, injector);
-            // @todo config entry
-            httpServer.requestHandler(router::accept).listen(8080);
+            httpServer.requestHandler(router::accept).listen(port != null ? port : 8080);
             startFuture.complete();
         } catch (Exception e) { startFuture.fail(e); }
     }

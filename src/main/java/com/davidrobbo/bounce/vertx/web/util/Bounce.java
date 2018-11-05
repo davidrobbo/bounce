@@ -23,6 +23,8 @@ import org.reflections.scanners.SubTypesScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 import org.reflections.util.FilterBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -35,6 +37,8 @@ import java.util.stream.Stream;
 import static java.util.stream.Collectors.toSet;
 
 public class Bounce {
+
+    private static final Logger log = LoggerFactory.getLogger(Bounce.class);
 
     /**
      * Use to allow custom Guice Injector
@@ -173,6 +177,7 @@ public class Bounce {
     private static <I extends RouteInterceptor> void initInterceptor(final Class<I> clazz,
                                                                      final Router router,
                                                                      final Injector injector) {
+        log.info("Mapping [INTERCEPTOR] " + clazz.getSimpleName());
         injector.getInstance(clazz).configure(router);
     }
 
@@ -181,6 +186,7 @@ public class Bounce {
         final String prefix = parent.isAnnotationPresent(RequestMapping.class) ?
                 ((RequestMapping)parent.getAnnotation(RequestMapping.class)).value() : "";
         final RequestMapping annotation = method.getAnnotation(RequestMapping.class);
+        log.info("Mapping [" + annotation.method().toString() + "] " + prefix + annotation.value());
         router.route(prefix + annotation.value())
                 .method(annotation.method())
                 .order(annotation.order())

@@ -5,12 +5,14 @@ import com.davidrobbo.bounce.vertx.web.*;
 import com.davidrobbo.bounce.vertx.web.annotations.*;
 import com.google.inject.Inject;
 import io.vertx.core.CompositeFuture;
+import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Future;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpClient;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonArray;
+import io.vertx.core.json.JsonObject;
 import io.vertx.ext.unit.Async;
 import io.vertx.ext.unit.TestContext;
 import io.vertx.ext.unit.junit.RunTestOnContext;
@@ -30,14 +32,20 @@ import java.util.Map;
 @RunWith(VertxUnitRunner.class)
 public class BounceVerticleTest {
 
+    private static int httpPort = 8080;
+
     @ClassRule
     public static final RunTestOnContext rule = new RunTestOnContext();
 
     @BeforeClass
     public static void setup(final TestContext context) throws Exception {
 
-        // @todo port from conf
-        rule.vertx().deployVerticle(new TestVerticle(), context.asyncAssertSuccess());
+        final JsonObject config = rule.vertx().fileSystem()
+                .readFileBlocking("application.properties.json").toJsonObject();
+        final Integer port = config.getInteger("server.port");
+        if (port != null) { httpPort = port; }
+        rule.vertx().deployVerticle(new TestVerticle(), new DeploymentOptions().setConfig(config),
+                context.asyncAssertSuccess());
 
     }
 
@@ -267,7 +275,7 @@ public class BounceVerticleTest {
 
         final Async async = context.async();
         final HttpClient httpClient = rule.vertx().createHttpClient();
-        httpClient.getNow(8080, "localhost", "/a/not-found", response -> {
+        httpClient.getNow(httpPort, "localhost", "/a/not-found", response -> {
 
             context.assertTrue(response.statusCode() == 404);
             async.complete();
@@ -279,7 +287,7 @@ public class BounceVerticleTest {
 
         final Async async = context.async();
         final HttpClient httpClient = rule.vertx().createHttpClient();
-        httpClient.getNow(8080, "localhost", "/", response -> {
+        httpClient.getNow(httpPort, "localhost", "/", response -> {
 
             context.assertTrue(response.statusCode() == 200);
             response.bodyHandler(body -> {
@@ -295,7 +303,7 @@ public class BounceVerticleTest {
 
         final Async async = context.async();
         final HttpClient httpClient = rule.vertx().createHttpClient();
-        httpClient.getNow(8080, "localhost", "/unauthorized", response -> {
+        httpClient.getNow(httpPort, "localhost", "/unauthorized", response -> {
 
             context.assertTrue(response.statusCode() == 401);
             async.complete();
@@ -307,7 +315,7 @@ public class BounceVerticleTest {
 
         final Async async = context.async();
         final HttpClient httpClient = rule.vertx().createHttpClient();
-        httpClient.getNow(8080, "localhost", "/should/fail", response -> {
+        httpClient.getNow(httpPort, "localhost", "/should/fail", response -> {
 
             context.assertTrue(response.statusCode() == 400);
             async.complete();
@@ -319,7 +327,7 @@ public class BounceVerticleTest {
 
         final Async async = context.async();
         final HttpClient httpClient = rule.vertx().createHttpClient();
-        httpClient.getNow(8080, "localhost", "/prefix/suffix", response -> {
+        httpClient.getNow(httpPort, "localhost", "/prefix/suffix", response -> {
 
             context.assertTrue(response.statusCode() == 200);
             response.bodyHandler(body -> {
@@ -340,7 +348,7 @@ public class BounceVerticleTest {
         foo.setName("Foo");
         bar.setName("Bar");
         foo.setBar(bar);
-        httpClient.post(8080, "localhost", "/", response -> {
+        httpClient.post(httpPort, "localhost", "/", response -> {
 
             context.assertTrue(response.statusCode() == 200);
             response.bodyHandler(body -> {
@@ -358,7 +366,7 @@ public class BounceVerticleTest {
 
     public void getById(final TestContext context, final Async async) throws Exception {
         final HttpClient httpClient = rule.vertx().createHttpClient();
-        httpClient.getNow(8080, "localhost", "/1", response -> {
+        httpClient.getNow(httpPort, "localhost", "/1", response -> {
 
             context.assertTrue(response.statusCode() == 200);
             response.bodyHandler(body -> {
@@ -375,7 +383,7 @@ public class BounceVerticleTest {
 
     public void getAll(final TestContext context, final Async async) throws Exception {
         final HttpClient httpClient = rule.vertx().createHttpClient();
-        httpClient.getNow(8080, "localhost", "/all", response -> {
+        httpClient.getNow(httpPort, "localhost", "/all", response -> {
 
             context.assertTrue(response.statusCode() == 200);
             response.bodyHandler(body -> {
@@ -391,7 +399,7 @@ public class BounceVerticleTest {
 
     public void byName(final TestContext context, final Async async) throws Exception {
         final HttpClient httpClient = rule.vertx().createHttpClient();
-        httpClient.getNow(8080, "localhost", "/by/name?name=Foo", response -> {
+        httpClient.getNow(httpPort, "localhost", "/by/name?name=Foo", response -> {
 
             context.assertTrue(response.statusCode() == 200);
             response.bodyHandler(body -> {
@@ -407,7 +415,7 @@ public class BounceVerticleTest {
 
     public void byPage(final TestContext context, final Async async) throws Exception {
         final HttpClient httpClient = rule.vertx().createHttpClient();
-        httpClient.getNow(8080, "localhost", "/by/page?page=0&size=1", response -> {
+        httpClient.getNow(httpPort, "localhost", "/by/page?page=0&size=1", response -> {
 
             context.assertTrue(response.statusCode() == 200);
             response.bodyHandler(body -> {
@@ -427,7 +435,7 @@ public class BounceVerticleTest {
 
     private void delete(final TestContext context, final Async async) {
         final HttpClient httpClient = rule.vertx().createHttpClient();
-        httpClient.delete(8080, "localhost", "/1", response -> {
+        httpClient.delete(httpPort, "localhost", "/1", response -> {
             context.assertTrue(response.statusCode() == 204);
             async.complete();
         }).end();
