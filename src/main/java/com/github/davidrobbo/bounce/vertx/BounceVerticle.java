@@ -1,13 +1,13 @@
-package com.davidrobbo.bounce.vertx;
+package com.github.davidrobbo.bounce.vertx;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
-import com.davidrobbo.bounce.guice.BounceConfigModule;
+import com.github.davidrobbo.bounce.guice.BounceConfigModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.davidrobbo.bounce.vertx.web.annotations.EnableJPARepositories;
-import com.davidrobbo.bounce.vertx.web.annotations.EnableWeb;
-import com.davidrobbo.bounce.vertx.web.util.Bounce;
+import com.github.davidrobbo.bounce.vertx.web.annotations.EnableJPARepositories;
+import com.github.davidrobbo.bounce.vertx.web.annotations.EnableWeb;
+import com.github.davidrobbo.bounce.vertx.web.util.Bounce;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.http.HttpServer;

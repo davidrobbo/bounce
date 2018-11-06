@@ -1,4 +1,4 @@
-package com.davidrobbo.bounce.guice;
+package com.github.davidrobbo.bounce.guice;
 
 import com.google.inject.AbstractModule;
 import io.vertx.core.Vertx;

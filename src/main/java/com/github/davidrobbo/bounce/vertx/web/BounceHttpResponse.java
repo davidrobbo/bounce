@@ -1,4 +1,4 @@
-package com.davidrobbo.bounce.vertx.web;
+package com.github.davidrobbo.bounce.vertx.web;
 
 public class BounceHttpResponse {
 

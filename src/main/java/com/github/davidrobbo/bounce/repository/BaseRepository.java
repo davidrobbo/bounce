@@ -1,9 +1,9 @@
-package com.davidrobbo.bounce.repository;
+package com.github.davidrobbo.bounce.repository;
 
 import com.google.inject.Inject;
-import com.davidrobbo.bounce.vertx.web.util.EntityManagerHelper;
-import com.davidrobbo.bounce.vertx.web.Page;
-import com.davidrobbo.bounce.vertx.web.Pageable;
+import com.github.davidrobbo.bounce.vertx.web.util.EntityManagerHelper;
+import com.github.davidrobbo.bounce.vertx.web.Page;
+import com.github.davidrobbo.bounce.vertx.web.Pageable;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;

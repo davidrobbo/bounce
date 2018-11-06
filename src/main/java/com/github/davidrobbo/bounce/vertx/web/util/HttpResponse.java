@@ -1,7 +1,7 @@
-package com.davidrobbo.bounce.vertx.web.util;
+package com.github.davidrobbo.bounce.vertx.web.util;
 
-import com.davidrobbo.bounce.vertx.web.BounceHttpResponse;
-import com.davidrobbo.bounce.vertx.web.BounceHttpException;
+import com.github.davidrobbo.bounce.vertx.web.BounceHttpResponse;
+import com.github.davidrobbo.bounce.vertx.web.BounceHttpException;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
