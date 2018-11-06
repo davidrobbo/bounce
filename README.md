@@ -6,9 +6,9 @@ Spring like annotation driven components for Vertx (RequestMapping, PathVariable
 // use the @EnableWeb annotation to identify
 // web packages to scan
 
-package com.davidrobbo.bounce.vertx.web.annotations;
+package com.github.davidrobbo.bounce.vertx.web.annotations;
 
-import com.davidrobbo.bounce.vertx.BounceVerticle;
+import com.github.davidrobbo.bounce.vertx.BounceVerticle;
 
 @EnableWeb(packages = {"com.foobar"})
 public class FooVerticle extends BounceVerticle {}
@@ -22,8 +22,8 @@ public class FooVerticle extends BounceVerticle {}
 
 package com.foobar;
 
-import com.davidrobbo.bounce.vertx.web.Pageable;
-import com.davidrobbo.bounce.vertx.web.annotations.*;
+import com.github.davidrobbo.bounce.vertx.web.Pageable;
+import com.github.davidrobbo.bounce.vertx.web.annotations.*;
 import io.vertx.core.Future;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServerRequest;

@@ -1,4 +1,4 @@
-package com.davidrobbo.bounce.vertx.web.util;
+package com.github.davidrobbo.bounce.vertx.web.util;
 
 import io.vertx.core.Future;
 

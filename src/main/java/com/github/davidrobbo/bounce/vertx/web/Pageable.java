@@ -1,4 +1,4 @@
-package com.davidrobbo.bounce.vertx.web;
+package com.github.davidrobbo.bounce.vertx.web;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.vertx.core.json.Json;
