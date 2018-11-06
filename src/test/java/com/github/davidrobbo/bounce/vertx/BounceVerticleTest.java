@@ -1,8 +1,8 @@
-package com.davidrobbo.bounce.vertx;
+package com.github.davidrobbo.bounce.vertx;
 
-import com.davidrobbo.bounce.repository.BaseRepository;
-import com.davidrobbo.bounce.vertx.web.*;
-import com.davidrobbo.bounce.vertx.web.annotations.*;
+import com.github.davidrobbo.bounce.repository.BaseRepository;
+import com.github.davidrobbo.bounce.vertx.web.*;
+import com.github.davidrobbo.bounce.vertx.web.annotations.*;
 import com.google.inject.Inject;
 import io.vertx.core.CompositeFuture;
 import io.vertx.core.DeploymentOptions;
@@ -28,8 +28,6 @@ import javax.persistence.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
-import static ch.qos.logback.classic.Level.INFO;
 
 @RunWith(VertxUnitRunner.class)
 public class BounceVerticleTest {
@@ -153,7 +151,7 @@ public class BounceVerticleTest {
         }
     }
 
-    @EnableWeb(packages = {"com.davidrobbo.bounce.vertx"})
+    @EnableWeb(packages = {"com.github.davidrobbo.bounce.vertx"})
     @EnableJPARepositories
     private static class TestVerticle extends BounceVerticle {
         @Override

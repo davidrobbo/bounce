@@ -1,4 +1,4 @@
-package com.davidrobbo.bounce.vertx.web.annotations;
+package com.github.davidrobbo.bounce.vertx.web.annotations;
 
 import io.vertx.core.http.HttpMethod;
 

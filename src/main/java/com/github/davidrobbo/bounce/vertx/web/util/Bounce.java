@@ -1,12 +1,12 @@
-package com.davidrobbo.bounce.vertx.web.util;
+package com.github.davidrobbo.bounce.vertx.web.util;
 
-import com.davidrobbo.bounce.guice.BounceConfigModule;
-import com.davidrobbo.bounce.vertx.web.annotations.*;
+import com.github.davidrobbo.bounce.guice.BounceConfigModule;
+import com.github.davidrobbo.bounce.vertx.web.annotations.*;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.davidrobbo.bounce.vertx.web.BounceHttpException;
-import com.davidrobbo.bounce.vertx.web.Pageable;
-import com.davidrobbo.bounce.vertx.web.RouteInterceptor;
+import com.github.davidrobbo.bounce.vertx.web.BounceHttpException;
+import com.github.davidrobbo.bounce.vertx.web.Pageable;
+import com.github.davidrobbo.bounce.vertx.web.RouteInterceptor;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.MultiMap;
